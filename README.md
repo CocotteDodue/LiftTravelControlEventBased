@@ -5,7 +5,9 @@ This is a technical task that is design to assess the programming skills (design
 The task specification is as follow:
 
 >You are in charge of writing software for an elevator (lift) company.
->Your task is to write a program to control the travel of a the lift for a 10 storey building.
+>Your task is to write a program to control the travel of a the lift for a 10 storey building: 
+> * 1: Ground floor
+> * 10: 10th floor
 >
 >A passenger can summon the lift to go up or down from any floor, once in the lift they can choose the floor they’d like to travel to.
 >Your program needs to plan the optimal set of instructions for the lift to travel, stop,  and open its doors.
