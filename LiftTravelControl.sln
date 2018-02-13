@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftTravelControl", "LiftTravelControl\LiftTravelControl.csproj", "{8EE5C405-0E01-44F2-A17A-A58156B07B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftTravelControl.Tests", "LiftTravelControl.Tests\LiftTravelControl.Tests.csproj", "{92254D11-224D-47FC-9837-6A4C3FE4EFA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EE5C405-0E01-44F2-A17A-A58156B07B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE5C405-0E01-44F2-A17A-A58156B07B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE5C405-0E01-44F2-A17A-A58156B07B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE5C405-0E01-44F2-A17A-A58156B07B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92254D11-224D-47FC-9837-6A4C3FE4EFA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92254D11-224D-47FC-9837-6A4C3FE4EFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92254D11-224D-47FC-9837-6A4C3FE4EFA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92254D11-224D-47FC-9837-6A4C3FE4EFA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D772D3D3-8D5F-414E-935D-C195C1EB6789}
+	EndGlobalSection
+EndGlobal
