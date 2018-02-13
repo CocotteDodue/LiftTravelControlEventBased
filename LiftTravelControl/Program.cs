@@ -25,6 +25,8 @@ namespace LiftTravelControl
             {
                 throw new ArgumentException($"Unknown floor value: {currentParkedFloorValue}");
             }
+
+            ILift lift = new Lift(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
         }
 
         private static bool IsValidFloor(int currentParkedFloorValue)
