@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiftTravelControl.Exceptions;
+using LiftTravelControl.Extensions;
+using System;
 using System.Linq;
 
 namespace LiftTravelControl
@@ -21,17 +23,12 @@ namespace LiftTravelControl
 
             int currentParkedFloorValue = GetCurrentFloorValue(args);
 
-            if (!IsValidFloor(currentParkedFloorValue))
+            if (!currentParkedFloorValue.IsValidFloor(liftMinFloor, liftMaxFloor))
             {
-                throw new ArgumentException($"Unknown floor value: {currentParkedFloorValue}");
+                throw new UnknowFloorExecption(currentParkedFloorValue);
             }
 
             ILift lift = new Lift(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
-        }
-
-        private static bool IsValidFloor(int currentParkedFloorValue)
-        {
-            return currentParkedFloorValue >= liftMinFloor && currentParkedFloorValue <= liftMaxFloor;  
         }
 
         private static int GetCurrentFloorValue(string[] args)
