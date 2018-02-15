@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace LiftTravelControl
+namespace LiftTravelControl.Interfaces
 {
     public interface IDoor
     {

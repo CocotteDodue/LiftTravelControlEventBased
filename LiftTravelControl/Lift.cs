@@ -1,35 +1,73 @@
-﻿using LiftTravelControl.Exceptions;
-using LiftTravelControl.Extensions;
+﻿using LiftTravelControl.Interfaces;
+using LiftTravelControl.Pocos;
 using System;
+using LiftTravelControl.Events;
 
 namespace LiftTravelControl
 {
-    internal class Lift : ILift
+    internal class Lift : ILift, IDisposable
     {
-        public int CurrentFloor { get; set; }
-        public int MinFloor { get; set; }
-        public int MaxFloor { get; set; }
+        public bool IsOpen => _door.IsOpen;
 
-        public Lift(int currentFloor, int lowestFloor, int highestFloor)
+        private FloorConfiguration _floorConfig;
+        private IDoor _door;
+        
+        public Lift(FloorConfiguration floorConfiguration, IDoor door)
         {
-            Initialize(currentFloor, lowestFloor, highestFloor);
+            Initialize(floorConfiguration, door);
         }
 
-        private void Initialize(int currentFloor, int lowestFloor, int highestFloor)
+        internal void Initialize(FloorConfiguration floorConfiguration, IDoor door)
         {
-            if (lowestFloor >= highestFloor)
-            {
-                throw new ArgumentException("ground floor is higher than top floor");
-            }
+            _floorConfig = floorConfiguration;
+            _door = door;
 
-            if (!currentFloor.IsValidFloor(lowestFloor, highestFloor))
-            {
-                throw new UnknowFloorExecption(currentFloor);
-            }
-
-            CurrentFloor = currentFloor;
-            MinFloor = lowestFloor;
-            MaxFloor = highestFloor;
+            SuscribeEvents();
         }
+
+        public void Dispose()
+        {
+            UnsuscribeEvents();
+        }
+
+        private void SuscribeEvents()
+        {
+            _door.SubscribeToDoorMovmentEvents(OnDoorMovment);
+        }
+
+        private void UnsuscribeEvents()
+        {
+            _door.UnsubscribeToDoorMovmentEvents(OnDoorMovment);
+        }
+
+        private void OnDoorMovment(object sender, DoorMovmentEventArgs e)
+        {
+            if (e == null)
+            {
+                return;
+            }
+
+            if (e.HasClosed)
+            {
+                StartTravel();
+            }
+        }
+
+        public int CurrentFloor => _floorConfig.CurrentFloor;
+
+        public virtual bool StartTravel()
+        {
+            bool travelStarted = !_door.IsOpen;
+            return travelStarted;
+        }
+
+        public void SummonCall(SummonInformation summonInfo)
+        {
+            _door.RequestOpening();
+        }
+
+        public void RequestFloor(int requestedFloor)
+        { }
+
     }
 }

@@ -4,15 +4,15 @@ using Xunit;
 
 namespace LiftTravelControl.Tests
 {
-    public class LiftTests
+    public class FloorConfigurationTests
     {
         [Fact]
-        public void Lift_CanaryTest()
+        public void FloorConfig_CanaryTest()
         {
             int currentFloor = 3;
             int lowestFloor = 0;
             int highestFloor = 15;
-            ILift lift = new Lift(currentFloor, lowestFloor, highestFloor);
+            FloorConfiguration lift = new FloorConfiguration(currentFloor, lowestFloor, highestFloor);
 
             Assert.Equal(currentFloor, lift.CurrentFloor);
             Assert.Equal(lowestFloor, lift.MinFloor);
@@ -26,7 +26,7 @@ namespace LiftTravelControl.Tests
             int lowestFloor = 0;
             int highestFloor = 9;
 
-            Assert.Throws<UnknowFloorExecption>(() => new Lift(currentFloor, lowestFloor, highestFloor));
+            Assert.Throws<UnknowFloorExecption>(() => new FloorConfiguration(currentFloor, lowestFloor, highestFloor));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace LiftTravelControl.Tests
             int lowestFloor = 10;
             int highestFloor = 1;
 
-            Assert.Throws<ArgumentException>(() => new Lift(currentFloor, lowestFloor, highestFloor));
+            Assert.Throws<ArgumentException>(() => new FloorConfiguration(currentFloor, lowestFloor, highestFloor));
         }
     }
 }

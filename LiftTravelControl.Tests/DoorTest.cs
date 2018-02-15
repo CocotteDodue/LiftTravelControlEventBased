@@ -1,5 +1,7 @@
 ﻿using LiftTravelControl.Events;
-using Moq;
+using LiftTravelControl.Interfaces;
+using LiftTravelControl.Poco;
+using LiftTravelControl.Tests.Dummies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace LiftTravelControl.Tests
         [Fact]
         public void Door_MustSetIsOpenToTrue_WhenIsCloseAndRequestOpening()
         {
-            ITimeConfiguration timeConfig = new TimeConfiguration(50);
+            TimeConfiguration timeConfig = new TimeConfigurationNoDelayDummyForTest();
             IDoor door = new Door(timeConfig);
 
             door.RequestOpening();
@@ -31,7 +33,7 @@ namespace LiftTravelControl.Tests
         [Fact]
         public void Door_MustNotify_WhenStartOpening()
         {
-            ITimeConfiguration timeConfig = new TimeConfiguration(50);
+            TimeConfiguration timeConfig = new TimeConfigurationNoDelayDummyForTest();
             IDoor door = new Door(timeConfig);
             IList<DoorMovmentEventArgs> receivedEvents = new List<DoorMovmentEventArgs>();
             EventHandler<DoorMovmentEventArgs> del = delegate (object sender, DoorMovmentEventArgs e)
@@ -42,14 +44,14 @@ namespace LiftTravelControl.Tests
 
             door.RequestOpening();
             
-            Assert.True(receivedEvents.First().IsOpen);
+            Assert.False(receivedEvents.First().HasClosed);
             door.UnsubscribeToDoorMovmentEvents(del);
         }
 
         [Fact]
         public async Task Door_MustNotify_WhenClosed()
         {
-            ITimeConfiguration timeConfig = new TimeConfiguration(50);
+            TimeConfiguration timeConfig = new TimeConfigurationNoDelayDummyForTest();
             IDoor door = new Door(timeConfig);
             IList<DoorMovmentEventArgs> receivedEvents = new List<DoorMovmentEventArgs>();
             EventHandler<DoorMovmentEventArgs> del = delegate (object sender, DoorMovmentEventArgs e)
@@ -61,14 +63,14 @@ namespace LiftTravelControl.Tests
             await door.RequestClosing();
 
             Assert.Equal(1, receivedEvents.Count);
-            Assert.False(receivedEvents.Last().IsOpen);
+            Assert.True(receivedEvents.Last().HasClosed);
             door.UnsubscribeToDoorMovmentEvents(del);
         }
 
         [Fact]
         public async Task Door_MustCloseAutomatically_AfterOpening()
         {
-            ITimeConfiguration timeConfig = new TimeConfiguration(50);
+            TimeConfiguration timeConfig = new TimeConfigurationNoDelayDummyForTest();
             IDoor door = new Door(timeConfig);
             IList<DoorMovmentEventArgs> receivedEvents = new List<DoorMovmentEventArgs>();
             EventHandler<DoorMovmentEventArgs> del = delegate (object sender, DoorMovmentEventArgs e)
@@ -80,7 +82,7 @@ namespace LiftTravelControl.Tests
             await door.RequestOpening();
 
             Assert.Equal(2, receivedEvents.Count);
-            Assert.False(receivedEvents.Last().IsOpen);
+            Assert.True(receivedEvents.Last().HasClosed);
             door.UnsubscribeToDoorMovmentEvents(del);
         }
     }

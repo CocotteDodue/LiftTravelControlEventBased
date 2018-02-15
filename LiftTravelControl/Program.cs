@@ -1,5 +1,7 @@
 ﻿using LiftTravelControl.Exceptions;
 using LiftTravelControl.Extensions;
+using LiftTravelControl.Interfaces;
+using LiftTravelControl.Poco;
 using System;
 using System.Linq;
 
@@ -28,7 +30,14 @@ namespace LiftTravelControl
                 throw new UnknowFloorExecption(currentParkedFloorValue);
             }
 
-            ILift lift = new Lift(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
+            InitializeProgram(currentParkedFloorValue);
+        }
+
+        private static void InitializeProgram(int currentParkedFloorValue)
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
+            IDoor door = new Door(new TimeConfiguration(2500));
+            ILift lift = new Lift(floorConfig, door);
         }
 
         private static int GetCurrentFloorValue(string[] args)

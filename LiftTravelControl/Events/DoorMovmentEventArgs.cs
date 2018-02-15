@@ -2,11 +2,11 @@
 {
     public class DoorMovmentEventArgs
     {
-        public bool IsOpen { get; set; }
+        public bool HasClosed { get; set; }
 
         public DoorMovmentEventArgs(bool doorOpen)
         {
-            IsOpen = doorOpen;
+            HasClosed = !doorOpen;
         }
     }
 }
