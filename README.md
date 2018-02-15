@@ -1,4 +1,4 @@
-# LiftTravelControl
+# LiftTravelControl Event based
 .NETCore C# desktop application that simulate a lift travel control management system.
 
 This is a technical task that is design to assess the programming skills (design, architecture, code, approach) of the candidate.
@@ -22,3 +22,16 @@ In order to help with the development process, a set of scenarii has been provid
 ### What is used in this project?
 * Simple .NETCore console app & xunit Test project
 * Development process: Test Driven Development (TDD)
+* Event-base system to simulate lift real behavior and interaction with its environment
+    * concurent input-output on console: update lift information (current position, parked/traveling, direction of travel, state of doors)
+    * accept new request for floor destination at anytime
+    * accept summon request at anytime
+    * on the fly reorganize its traveling plan to account for new requests
+    * take into consideration sensors inputs: do not travel with door open / open door on arrival / close door after opening
+    * notify on :
+      * floor number reached
+      * arrived / departed
+      * door movment
+* Run: 
+  * Take into consideration common sense to initialize the program
+  * close on escape
