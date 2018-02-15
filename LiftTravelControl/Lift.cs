@@ -7,6 +7,8 @@ namespace LiftTravelControl
 {
     internal class Lift : ILift, IDisposable
     {
+        public virtual event EventHandler<SummonInformation> ArrivedOnFloorEvent;
+
         public bool IsOpen => _door.IsOpen;
 
         private FloorConfiguration _floorConfig;
@@ -68,6 +70,7 @@ namespace LiftTravelControl
 
         public void RequestFloor(int requestedFloor)
         { }
+
 
     }
 }

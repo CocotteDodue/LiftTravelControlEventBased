@@ -33,5 +33,18 @@ namespace LiftTravelControl.Tests
             
             fakeLift.Verify(lift => lift.StartTravel());
         }
+        
+        [Fact]
+        public async Task Lift_MustNotify_WhenReachedRequestedFloor()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            Door door = new Door(new TimeConfigurationNoDelayDummyForTest());
+            var fakeLift = new Mock<Lift>(floorConfig, door);
+            fakeLift.Object.Initialize(floorConfig, door);
+
+            await door.RequestClosing();
+
+            fakeLift.Verify(lift => lift.StartTravel());
+        }
     }
 }
